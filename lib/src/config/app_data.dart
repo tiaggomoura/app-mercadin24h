@@ -1,5 +1,7 @@
 import 'package:mercadin/src/models/item_model.dart';
 
+import '../models/cart_item.dart';
+
 ItemModel apple = ItemModel(
   description:
       'A melhor maçã da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
@@ -69,4 +71,19 @@ List<String> categories = [
   'Verduras',
   'Temperos',
   'Careais',
+];
+
+List<CartItem> cartItems = [
+  CartItem(
+    item: apple,
+    quantity: 2,
+  ),
+  CartItem(
+    item: mango,
+    quantity: 1,
+  ),
+  CartItem(
+    item: guava,
+    quantity: 3,
+  )
 ];
