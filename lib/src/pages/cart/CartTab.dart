@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mercadin/src/config/custom_colors.dart';
+import 'package:mercadin/src/pages/cart/components/cart_tile.dart';
 import 'package:mercadin/src/config/app_data.dart' as app_data;
 
 import '../../services/utils_services.dart';
@@ -21,7 +22,7 @@ class CartTab extends StatelessWidget {
               child: ListView.builder(
             itemCount: app_data.cartItems.length,
             itemBuilder: (_, index) {
-              return Text(app_data.cartItems[index].item.itemName);
+              return CartTile(cartItem: app_data.cartItems[index]);
             },
           )),
           const SizedBox(

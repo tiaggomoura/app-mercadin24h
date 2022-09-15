@@ -5,4 +5,7 @@ class CartItem {
   late int quantity;
 
   CartItem({required this.item, required this.quantity});
+
+  double totalPrice() => item.price * quantity;
+
 }
