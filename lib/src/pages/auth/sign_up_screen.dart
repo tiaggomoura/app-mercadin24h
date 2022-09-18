@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:mercadin/src/pages/auth/components/custom_text_field.dart';
+import 'package:mercadin/src/pages/commons_widgets/custom_text_field.dart';
 
 import '../../config/custom_colors.dart';
 

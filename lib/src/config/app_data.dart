@@ -1,4 +1,5 @@
 import 'package:mercadin/src/models/item_model.dart';
+import 'package:mercadin/src/models/user_model.dart';
 
 import '../models/cart_item.dart';
 
@@ -87,3 +88,10 @@ List<CartItem> cartItems = [
     quantity: 3,
   )
 ];
+
+UserModel user = UserModel(
+    name: 'João das Couves',
+    email: 'joao@email.com',
+    celular: '85998111111',
+    cpf: '88899900012',
+    senha: '123456');

@@ -4,7 +4,7 @@ import 'package:mercadin/src/pages/auth/sign_up_screen.dart';
 import 'package:mercadin/src/pages/base/base_screen.dart';
 
 import '../../config/custom_colors.dart';
-import 'components/custom_text_field.dart';
+import '../commons_widgets/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
