@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mercadin/src/pages/cart/CartTab.dart';
 import 'package:mercadin/src/pages/home/home_tab.dart';
 import 'package:mercadin/src/pages/profile/profile_tab.dart';
+import 'package:mercadin/src/pages/orders/orders_tab.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -20,11 +21,11 @@ class _BaseScreenState extends State<BaseScreen> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: [
-          const HomeTab(),
-          const CartTab(),
-          Container(color: Colors.blue),
-          const ProfileTab(),
+        children: const [
+          HomeTab(),
+          CartTab(),
+          OrdersTab(),
+          ProfileTab(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

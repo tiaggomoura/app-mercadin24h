@@ -1,5 +1,6 @@
 import 'package:mercadin/src/models/item_model.dart';
 import 'package:mercadin/src/models/user_model.dart';
+import 'package:mercadin/src/models/order_model.dart';
 
 import '../models/cart_item.dart';
 
@@ -95,3 +96,49 @@ UserModel user = UserModel(
     phone: '85998111111',
     cpf: '88899900012',
     password: '123456');
+
+List<OrderModel> orders = [
+  // Pedido 01
+  OrderModel(
+    copyAndPaste: 'q1w2e3r4t5y6',
+    createdDateTime: DateTime.parse(
+      '2022-06-08 10:00:10.458',
+    ),
+    overdueDateTime: DateTime.parse(
+      '2022-06-08 11:00:10.458',
+    ),
+    id: 'asd6a54da6s2d1',
+    status: 'pending_payment',
+    total: 11.0,
+    items: [
+      CartItem(
+        item: apple,
+        quantity: 2,
+      ),
+      CartItem(
+        item: mango,
+        quantity: 2,
+      ),
+    ],
+  ),
+
+  // Pedido 02
+  OrderModel(
+    copyAndPaste: 'q1w2e3r4t5y6',
+    createdDateTime: DateTime.parse(
+      '2022-06-08 10:00:10.458',
+    ),
+    overdueDateTime: DateTime.parse(
+      '2022-06-08 11:00:10.458',
+    ),
+    id: 'a65s4d6a2s1d6a5s',
+    status: 'delivered',
+    total: 11.5,
+    items: [
+      CartItem(
+        item: guava,
+        quantity: 1,
+      ),
+    ],
+  ),
+];
