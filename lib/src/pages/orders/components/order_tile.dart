@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mercadin/src/models/cart_item.dart';
 import 'package:mercadin/src/models/order_model.dart';
 import 'package:mercadin/src/services/utils_services.dart';
+import 'package:mercadin/src/pages/orders/components/order_status_widget.dart';
 
 class OrderTile extends StatelessWidget {
   OrderTile({
@@ -43,6 +44,7 @@ class OrderTile extends StatelessWidget {
               height: 150,
               child: Row(
                 children: [
+                  //Produtos
                   Expanded(
                     flex: 3,
                     child: ListView(
@@ -54,10 +56,18 @@ class OrderTile extends StatelessWidget {
                       }).toList(),
                     ),
                   ),
+                  //Divisao
+                  VerticalDivider(
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                    width: 8,
+                  ),
+                  //Staus
                   Expanded(
                     flex: 2,
-                    child: Container(
-                      color: Colors.blue,
+                    child: OrderStatusWidget(
+                      status: order.status,
+                      isOverDue: order.overdueDateTime.isBefore(DateTime.now()),
                     ),
                   ),
                 ],
