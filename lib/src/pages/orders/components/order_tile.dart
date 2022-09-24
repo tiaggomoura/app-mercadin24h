@@ -4,6 +4,8 @@ import 'package:mercadin/src/models/order_model.dart';
 import 'package:mercadin/src/services/utils_services.dart';
 import 'package:mercadin/src/pages/orders/components/order_status_widget.dart';
 
+import '../../commons_widgets/payment_diolg.dart';
+
 class OrderTile extends StatelessWidget {
   OrderTile({
     Key? key,
@@ -103,7 +105,16 @@ class OrderTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return PaymentDialog(
+                        order: order,
+                      );
+                    },
+                  );
+                },
                 icon: Image.asset(
                   'assets/app_images/pix.png',
                   height: 18,

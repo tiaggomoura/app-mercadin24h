@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mercadin/src/config/app_data.dart' as app_data;
 import 'package:mercadin/src/config/custom_colors.dart';
 import 'package:mercadin/src/models/cart_item.dart';
 import 'package:mercadin/src/pages/cart/components/cart_tile.dart';
-import 'package:mercadin/src/config/app_data.dart' as app_data;
 
 import '../../services/utils_services.dart';
+import '../commons_widgets/payment_diolg.dart';
 
 class CartTab extends StatefulWidget {
   const CartTab({Key? key}) : super(key: key);
@@ -91,6 +92,16 @@ class _CartTabState extends State<CartTab> {
                     ),
                     onPressed: () async {
                       bool? result = await showOrderConfimation();
+                      if (result ?? false) {
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return PaymentDialog(
+                              order: app_data.orders.first,
+                            );
+                          },
+                        );
+                      }
                     },
                     child: const Text(
                       'Concluir pedido',
