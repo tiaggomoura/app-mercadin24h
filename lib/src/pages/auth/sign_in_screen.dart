@@ -4,6 +4,8 @@ import 'package:mercadin/src/pages/auth/sign_up_screen.dart';
 import 'package:mercadin/src/pages/base/base_screen.dart';
 
 import '../../config/custom_colors.dart';
+
+import '../commons_widgets/app_name_widget.dart';
 import '../commons_widgets/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -26,22 +28,9 @@ class SignInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //Nome do App
-                    Text.rich(
-                      TextSpan(
-                        style: TextStyle(fontSize: 40),
-                        children: [
-                          const TextSpan(
-                              text: 'Mercadin',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                          TextSpan(
-                              text: '24H',
-                              style: TextStyle(
-                                  color: CustomColors.customContrastColor,
-                                  fontWeight: FontWeight.bold))
-                        ],
-                      ),
+                    const AppNameWidget(
+                      mercadinTitleColor: Colors.white,
+                      textSize: 40,
                     ),
                     // Categorias
                     SizedBox(

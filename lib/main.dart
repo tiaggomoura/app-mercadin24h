@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mercadin/src/pages/auth/sign_in_screen.dart';
+import 'package:mercadin/src/pages/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mercadin',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        scaffoldBackgroundColor: Colors.white.withAlpha(190)
-      ),
+          primarySwatch: Colors.green,
+          scaffoldBackgroundColor: Colors.white.withAlpha(190)),
       debugShowCheckedModeBanner: false,
-      home: const SignInScreen(),
+      home: const SplashScreen(),
     );
   }
 }
