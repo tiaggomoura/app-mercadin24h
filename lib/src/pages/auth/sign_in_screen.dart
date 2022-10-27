@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mercadin/src/pages/auth/controller/auth_controller.dart';
 import 'package:mercadin/src/pages_routes/app_pages.dart';
 
 import '../../config/custom_colors.dart';
@@ -11,6 +12,10 @@ class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
+
+  //CONTROLADOR DE CAMPOS
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +43,12 @@ class SignInScreen extends StatelessWidget {
                       height: 30,
                       child: DefaultTextStyle(
                         style: const TextStyle(fontSize: 25),
-                        child: AnimatedTextKit(
-                            pause: Duration.zero,
-                            repeatForever: true,
-                            animatedTexts: [
-                              FadeAnimatedText('Frutas'),
-                              FadeAnimatedText('Verduras'),
-                              FadeAnimatedText('Massas'),
-                              FadeAnimatedText('Cereais')
-                            ]),
+                        child: AnimatedTextKit(pause: Duration.zero, repeatForever: true, animatedTexts: [
+                          FadeAnimatedText('Frutas'),
+                          FadeAnimatedText('Verduras'),
+                          FadeAnimatedText('Massas'),
+                          FadeAnimatedText('Cereais')
+                        ]),
                       ),
                     )
                   ],
@@ -55,12 +57,9 @@ class SignInScreen extends StatelessWidget {
 
               // Formulário
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(45))),
+                    color: Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(45))),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -68,6 +67,7 @@ class SignInScreen extends StatelessWidget {
                     children: [
                       // Email
                       CustomTextField(
+                        controller: emailController,
                         icon: Icons.email,
                         label: 'Email',
                         validator: (email) {
@@ -83,6 +83,7 @@ class SignInScreen extends StatelessWidget {
 
                       // Senha
                       CustomTextField(
+                        controller: passwordController,
                         isSecret: true,
                         icon: Icons.lock,
                         label: 'Senha',
@@ -96,21 +97,37 @@ class SignInScreen extends StatelessWidget {
                           return null;
                         },
                       ),
+
+                      //Botão entrar
                       SizedBox(
                         height: 50,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18))),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Get.offNamed(PagesRoutes.baseRoute);
-                              }
-                            },
-                            child: const Text(
-                              'Entrar',
-                              style: TextStyle(fontSize: 18),
-                            )),
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))),
+                                onPressed: authController.isLoading.value
+                                    ? null
+                                    : () {
+                                        FocusScope.of(context).unfocus();
+                                        if (_formKey.currentState!.validate()) {
+                                          String email = emailController.text;
+                                          String password = passwordController.text;
+
+                                          authController.signin(email: email, password: password);
+                                          //Get.offNamed(PagesRoutes.baseRoute);
+                                        }
+                                      },
+                                child: authController.isLoading.value
+                                    ? const CircularProgressIndicator()
+                                    : const Text(
+                                        'Entrar',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                         ),
+                                      ));
+                          },
+                        ),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -118,8 +135,7 @@ class SignInScreen extends StatelessWidget {
                             onPressed: () {},
                             child: Text(
                               'Esqueceu a senha?',
-                              style: TextStyle(
-                                  color: CustomColors.customContrastColor),
+                              style: TextStyle(color: CustomColors.customContrastColor),
                             )),
                       ),
 
@@ -154,10 +170,8 @@ class SignInScreen extends StatelessWidget {
                         height: 50,
                         child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18)),
-                                side: const BorderSide(
-                                    width: 2, color: Colors.green)),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                                side: const BorderSide(width: 2, color: Colors.green)),
                             onPressed: () {
                               Get.to(PagesRoutes.signUpRoute);
                             },
