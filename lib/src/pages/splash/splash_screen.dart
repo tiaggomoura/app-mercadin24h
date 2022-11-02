@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mercadin/src/config/custom_colors.dart';
-import 'package:mercadin/src/pages/auth/sign_in_screen.dart';
+import 'package:mercadin/src/pages/auth/view/sign_in_screen.dart';
 import 'package:mercadin/src/pages/commons_widgets/app_name_widget.dart';
 
 import '../../pages_routes/app_pages.dart';

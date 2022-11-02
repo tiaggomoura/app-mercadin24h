@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:mercadin/src/pages/auth/controller/auth_controller.dart';
 import 'package:mercadin/src/pages_routes/app_pages.dart';
 
-import '../../config/custom_colors.dart';
-import '../commons_widgets/app_name_widget.dart';
-import '../commons_widgets/custom_text_field.dart';
+import '../../../config/custom_colors.dart';
+import '../../commons_widgets/app_name_widget.dart';
+import '../../commons_widgets/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);

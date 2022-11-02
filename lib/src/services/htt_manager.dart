@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart/';
+import 'package:dio/dio.dart';
 
 abstract class HttpMethods {
   static const String post = 'POST';
