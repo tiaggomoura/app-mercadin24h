@@ -2,9 +2,11 @@ import 'package:mercadin/src/models/user_model.dart';
 import 'package:mercadin/src/services/htt_manager.dart';
 
 import '../../../constants/endpoints.dart';
+import '../result/auth_result.dart';
+import '../repository/auth_errors.dart' as authErrors;
 
 class AuthRepository {
-  Future signin({required String email, required String password}) async {
+  Future<AuthResult> signIn({required String email, required String password}) async {
     final HttpManager _httManager = HttpManager();
     final result = await _httManager.restRequest(
       url: Endpoints.signin,
@@ -16,11 +18,10 @@ class AuthRepository {
     );
 
     if (result['result'] != null) {
-      print('Funcionou');
       final user = UserModel.fromJson(result['result']);
-      print(user);
+      return AuthResult.success(user);
     } else {
-      print('Não Funcionou');
+      return AuthResult.error(authErrors.authErrorsString(result['error']));
     }
   }
 }
