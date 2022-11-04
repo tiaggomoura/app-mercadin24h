@@ -5,6 +5,8 @@ import 'package:mercadin/src/pages/auth/result/auth_result.dart';
 import 'package:mercadin/src/pages_routes/app_pages.dart';
 import 'package:mercadin/src/services/utils_services.dart';
 
+import '../../../constants/storage_keys.dart';
+
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
 
@@ -12,6 +14,31 @@ class AuthController extends GetxController {
   final utilsServices = UtilsServices();
 
   UserModel user = UserModel();
+
+  @override
+  void onInit() {
+    super.onInit();
+    validateToken();
+  }
+
+  Future<void> validateToken() async {
+    String? token = await utilsServices.getLocalData(key: StorageKeys.token);
+    if (token == null) {
+      Get.offAllNamed(PagesRoutes.signInRoute);
+      return;
+    }
+    AuthResult result = await authRepository.validateToken(token);
+
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        signOut();
+      },
+    );
+  }
 
   Future<void> signin({required String email, required String password}) async {
     isLoading.value = true;
@@ -22,7 +49,7 @@ class AuthController extends GetxController {
     result.when(
       success: (user) {
         this.user = user;
-        Get.offAllNamed(PagesRoutes.baseRoute);
+        saveTokenAndProceedToBase();
       },
       error: (message) {
         utilsServices.showToast(
@@ -31,5 +58,16 @@ class AuthController extends GetxController {
         );
       },
     );
+  }
+
+  void saveTokenAndProceedToBase() {
+    utilsServices.saveLocalData(key: StorageKeys.token, data: user.token!);
+    Get.offAllNamed(PagesRoutes.baseRoute);
+  }
+
+  Future<void> signOut() async {
+    user = UserModel();
+    utilsServices.removeLocalData(key: StorageKeys.token);
+    Get.offAllNamed(PagesRoutes.signInRoute);
   }
 }

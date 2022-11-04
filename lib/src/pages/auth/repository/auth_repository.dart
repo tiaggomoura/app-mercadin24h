@@ -6,8 +6,17 @@ import '../result/auth_result.dart';
 import '../repository/auth_errors.dart' as authErrors;
 
 class AuthRepository {
+  final HttpManager _httManager = HttpManager();
+
+  Future<AuthResult> validateToken(String token) async {
+    final result = await _httManager.restRequest(url: Endpoints.validateToken, method: HttpMethods.post, headers: {
+      'X-Parse-Session-Token': token,
+    });
+
+    return checkResult(result);
+  }
+
   Future<AuthResult> signIn({required String email, required String password}) async {
-    final HttpManager _httManager = HttpManager();
     final result = await _httManager.restRequest(
       url: Endpoints.signin,
       method: HttpMethods.post,
@@ -17,6 +26,10 @@ class AuthRepository {
       },
     );
 
+    return checkResult(result);
+  }
+
+  AuthResult checkResult(Map<dynamic, dynamic> result) {
     if (result['result'] != null) {
       final user = UserModel.fromJson(result['result']);
       return AuthResult.success(user);

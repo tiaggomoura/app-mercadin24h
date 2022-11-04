@@ -4,6 +4,7 @@ import 'package:mercadin/src/pages/auth/controller/auth_controller.dart';
 import 'package:mercadin/src/pages_routes/app_pages.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   Get.put(AuthController());
   runApp(const MyApp());
 }
@@ -16,9 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Mercadin',
-      theme: ThemeData(
-          primarySwatch: Colors.green,
-          scaffoldBackgroundColor: Colors.white.withAlpha(190)),
+      theme: ThemeData(primarySwatch: Colors.green, scaffoldBackgroundColor: Colors.white.withAlpha(190)),
       debugShowCheckedModeBanner: false,
       initialRoute: PagesRoutes.splashRoute,
       getPages: AppPages.pages,
