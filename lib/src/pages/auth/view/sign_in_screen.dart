@@ -5,6 +5,7 @@ import 'package:mercadin/src/pages/auth/controller/auth_controller.dart';
 import 'package:mercadin/src/pages_routes/app_pages.dart';
 
 import '../../../config/custom_colors.dart';
+import '../../../services/validators.dart';
 import '../../commons_widgets/app_name_widget.dart';
 import '../../commons_widgets/custom_text_field.dart';
 
@@ -70,15 +71,7 @@ class SignInScreen extends StatelessWidget {
                         controller: emailController,
                         icon: Icons.email,
                         label: 'Email',
-                        validator: (email) {
-                          if (email == null || email.isEmpty) {
-                            return 'Digite seu email!';
-                          }
-                          if (!email.isEmail) {
-                            return 'Digite um email válido.';
-                          }
-                          return null;
-                        },
+                        validator: emailValidator,
                       ),
 
                       // Senha
@@ -87,15 +80,7 @@ class SignInScreen extends StatelessWidget {
                         isSecret: true,
                         icon: Icons.lock,
                         label: 'Senha',
-                        validator: (password) {
-                          if (password == null || password.isEmpty) {
-                            return 'Digite seu password!';
-                          }
-                          if (password.length < 8) {
-                            return 'Digite senha com no mínimo 8 caracteres.';
-                          }
-                          return null;
-                        },
+                        validator: passwordValidator,
                       ),
 
                       //Botão entrar
@@ -124,7 +109,7 @@ class SignInScreen extends StatelessWidget {
                                         'Entrar',
                                         style: TextStyle(
                                           fontSize: 18,
-                                         ),
+                                        ),
                                       ));
                           },
                         ),
@@ -173,7 +158,7 @@ class SignInScreen extends StatelessWidget {
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
                                 side: const BorderSide(width: 2, color: Colors.green)),
                             onPressed: () {
-                              Get.to(PagesRoutes.signUpRoute);
+                              Get.toNamed(PagesRoutes.signUpRoute);
                             },
                             child: const Text(
                               'Criar conta',
