@@ -29,6 +29,24 @@ class AuthRepository {
     return checkResult(result);
   }
 
+  Future<AuthResult> signUp(UserModel user) async {
+    final result = await _httManager.restRequest(
+      url: Endpoints.signup,
+      method: HttpMethods.post,
+      body: user.toJson(),
+    );
+
+    return checkResult(result);
+  }
+
+  Future<void> resetPassword(String email) async {
+    await _httManager.restRequest(
+      url: Endpoints.resetPassword,
+      method: HttpMethods.post,
+      body: {'email': email},
+    );
+  }
+
   AuthResult checkResult(Map<dynamic, dynamic> result) {
     if (result['result'] != null) {
       final user = UserModel.fromJson(result['result']);

@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mercadin/src/pages/auth/controller/auth_controller.dart';
 import 'package:mercadin/src/pages_routes/app_pages.dart';
+import 'package:mercadin/src/services/utils_services.dart';
 
 import '../../../config/custom_colors.dart';
 import '../../../services/validators.dart';
 import '../../commons_widgets/app_name_widget.dart';
 import '../../commons_widgets/custom_text_field.dart';
+import 'components/forgot_password_dialog.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
+  final utilsServices = UtilsServices();
 
   //CONTROLADOR DE CAMPOS
   final emailController = TextEditingController();
@@ -89,35 +92,45 @@ class SignInScreen extends StatelessWidget {
                         child: GetX<AuthController>(
                           builder: (authController) {
                             return ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))),
-                                onPressed: authController.isLoading.value
-                                    ? null
-                                    : () {
-                                        FocusScope.of(context).unfocus();
-                                        if (_formKey.currentState!.validate()) {
-                                          String email = emailController.text;
-                                          String password = passwordController.text;
-
-                                          authController.signin(email: email, password: password);
-                                          //Get.offNamed(PagesRoutes.baseRoute);
-                                        }
-                                      },
-                                child: authController.isLoading.value
-                                    ? const CircularProgressIndicator()
-                                    : const Text(
-                                        'Entrar',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                        ),
-                                      ));
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))),
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                      FocusScope.of(context).unfocus();
+                                      if (_formKey.currentState!.validate()) {
+                                        String email = emailController.text;
+                                        String password = passwordController.text;
+                                        authController.signin(email: email, password: password);
+                                      }
+                                    },
+                              child: authController.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      'Entrar',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                            );
                           },
                         ),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              final bool? result = await showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return ForgotPasswordDialog(email: emailController.text);
+                                },
+                              );
+
+                              if (result ?? false) {
+                                utilsServices.showToast(message: 'Check seu email com o Link de recupecação.');
+                              }
+                            },
                             child: Text(
                               'Esqueceu a senha?',
                               style: TextStyle(color: CustomColors.customContrastColor),
