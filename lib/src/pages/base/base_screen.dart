@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mercadin/src/pages/cart/CartTab.dart';
-import 'package:mercadin/src/pages/home/home_tab.dart';
+import 'package:mercadin/src/pages/home/view/home_tab.dart';
 import 'package:mercadin/src/pages/profile/profile_tab.dart';
 import 'package:mercadin/src/pages/orders/orders_tab.dart';
 

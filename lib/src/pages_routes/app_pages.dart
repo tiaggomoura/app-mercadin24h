@@ -4,6 +4,7 @@ import 'package:mercadin/src/pages/base/base_screen.dart';
 import 'package:mercadin/src/pages/splash/splash_screen.dart';
 
 import '../pages/auth/view/sign_up_screen.dart';
+import '../pages/home/binding/home_binding.dart';
 
 abstract class AppPages {
   static final pages = <GetPage>[
@@ -22,6 +23,9 @@ abstract class AppPages {
     GetPage(
       page: () => BaseScreen(),
       name: PagesRoutes.baseRoute,
+      bindings: [
+        HomeBinding(),
+      ],
     ),
   ];
 }

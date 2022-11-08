@@ -6,12 +6,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mercadin/src/config/custom_colors.dart';
 import 'package:mercadin/src/services/utils_services.dart';
 
-import '../commons_widgets/app_name_widget.dart';
-import '../commons_widgets/custom_shimmer.dart';
-import 'components/category_tile.dart';
+import '../../commons_widgets/app_name_widget.dart';
+import '../../commons_widgets/custom_shimmer.dart';
+import '../components/category_tile.dart';
 import 'package:mercadin/src/config/app_data.dart' as app_data;
 
-import 'components/item_tile.dart';
+import '../components/item_tile.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
