@@ -15,7 +15,7 @@ class HomeRepository {
 
     if (result['result'] != null) {
       List<CategoryModel> data =
-          (result['result'] as List<Map<String, dynamic>>).map((e) => CategoryModel.fromJson(e)).toList();
+          (List<Map<String, dynamic>>.from(result['result'])).map((e) => CategoryModel.fromJson(e)).toList();
 
       return HomeResult<CategoryModel>.success(data);
     } else {

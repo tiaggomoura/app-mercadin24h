@@ -10,11 +10,12 @@ class HomeController extends GetxController {
   final utilsServices = UtilsServices();
   bool isLoading = false;
   List<CategoryModel> allCategories = [];
+  CategoryModel? currentCategory;
 
   @override
   void onInit() {
     super.onInit();
-    getALlCategories();
+    getAllCategories();
   }
 
   void setLoading(bool value) {
@@ -22,7 +23,7 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getALlCategories() async {
+  Future<void> getAllCategories() async {
     setLoading(true);
     HomeResult<CategoryModel> homeResult = await homeRepository.getAllCategories();
     setLoading(false);
@@ -30,6 +31,10 @@ class HomeController extends GetxController {
     homeResult.when(
       success: (data) {
         allCategories.assignAll(data);
+        if (allCategories.isNotEmpty) {
+          selectCategory(allCategories.first);
+        }
+
         print('Todas as categorias: $allCategories');
       },
       error: (message) {
@@ -39,5 +44,10 @@ class HomeController extends GetxController {
         );
       },
     );
+  }
+
+  void selectCategory(CategoryModel category) {
+    currentCategory = category;
+    update();
   }
 }
