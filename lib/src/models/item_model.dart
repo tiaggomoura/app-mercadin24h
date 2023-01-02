@@ -7,7 +7,7 @@ class ItemModel {
   String id;
   @JsonKey(name: 'title')
   String itemName;
-  @JsonKey(name: 'picture')
+  @JsonKey(name: 'picture ')
   String imgUrl;
   String unit;
   double price;
